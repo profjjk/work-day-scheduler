@@ -1,7 +1,23 @@
 ///// CURRENT DAY DISPLAY /////
+// Display today's date in header.
+function getToday () {
+    var date = dayjs().format("dddd, MMMM D")
+    $("#currentDay").text(date);
+}
+getToday();
+// Verify same-day todos.
+function verifyTodayList() {
+    var todayDate = dayjs().format("dddd, MMMM D");
+    var storedDate = localStorage.getItem("date");
+    if (storedDate === todayDate || null) {
+        return;
+    } else {
+        localStorage.setItem("date", todayDate);
+        localStorage.removeItem("toDoList");
+    }
+}
+verifyTodayList();
 
-var date = dayjs().format("dddd, MMMM D")
-$("#currentDay").text(date);
 
 
 ///// COLOR-CODED TEXT-AREAS /////
