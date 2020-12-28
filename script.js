@@ -1,4 +1,7 @@
-///// CURRENT DAY DISPLAY /////
+///// GLOBAL VARIABLES /////
+var toDoList = [];
+
+///// FUNCTIONS /////
 // Display today's date in header.
 function getToday () {
     var date = dayjs().format("dddd, MMMM D")
@@ -6,8 +9,8 @@ function getToday () {
 }
 getToday();
 // Verify same-day todos.
-function verifyTodayList() {
-    var todayDate = dayjs().format("dddd, MMMM D");
+function verifyToday() {
+    var todayDate = dayjs().format("MMMM D");
     var storedDate = localStorage.getItem("date");
     if (storedDate === todayDate || null) {
         return;
@@ -16,15 +19,38 @@ function verifyTodayList() {
         localStorage.removeItem("toDoList");
     }
 }
-verifyTodayList();
+verifyToday();
+// Store to do list.
+function writeToStorage() {
+    localStorage.setItem("toDoList", JSON.stringify(toDoList));
+}
+// Retrieve to do list.
+function retrieveFromStorage() {
+    if (localStorage === "") {
+        return;
+    } else {
+        toDoList = JSON.parse(localStorage.getItem("toDoList")) || [];
+    }
+}
+
+///// EVENT LISTENERS /////
+// Add todo item 9am.
+$("#button-9").on("click", function() {
+    var text = $("#text-9").val();
+    var hour = $(this).val();
+    var toDoObj = {text: text, hour: hour};
+    toDoList.splice(0, 0, toDoObj);
+    writeToStorage();
+    console.log(toDoList);
+})
 
 
 
-///// COLOR-CODED TEXT-AREAS /////
 
 
 ///// TYPE TEXT ONTO SCREEN /////
 
+///// COLOR-CODED TEXT-AREAS /////
 
 ///// RETRIEVE TEXT FROM LOCAL STORAGE /////
 
