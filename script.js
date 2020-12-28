@@ -32,16 +32,25 @@ function retrieveFromStorage() {
         toDoList = JSON.parse(localStorage.getItem("toDoList")) || [];
     }
 }
+// Load to do items.
+function loadToDos() {
+    retrieveFromStorage();
+    for (var i = 0; i < toDoList.length; i++) {
+        var hour = toDoList[i].hour;
+        var text = toDoList[i].text;
+        $("#text-" + hour).val(text);
+    }
+}
+loadToDos();
 
 ///// EVENT LISTENERS /////
-// Add todo item 9am.
-$("#button-9").on("click", function() {
-    var text = $("#text-9").val();
+// Save data on button click.
+$("button").on("click", function() {
     var hour = $(this).val();
+    var text = $("#text-" + hour).val();
     var toDoObj = {text: text, hour: hour};
-    toDoList.splice(0, 0, toDoObj);
+    toDoList.splice((hour-9), 1, toDoObj);
     writeToStorage();
-    console.log(toDoList);
 })
 
 
