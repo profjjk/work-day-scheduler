@@ -53,22 +53,19 @@ $("button").on("click", function() {
     writeToStorage();
 })
 
-
-
-
-
-///// TYPE TEXT ONTO SCREEN /////
-
-///// COLOR-CODED TEXT-AREAS /////
-
-///// RETRIEVE TEXT FROM LOCAL STORAGE /////
-
-
-///// SAVE TEXT TO LOCAL STORAGE /////
-// Step One:
-// Q: What are you going to do?
-// A: 
-// Q: How are you going to do it?
-// A:
-// Q: Why are you going to do it?
-// A:
+///// PAST, PRESENT, FUTURE /////
+// Change textarea color based on time.
+function changeColor() {
+    var nowTime = dayjs().hour();
+    for (var i = 0; i < toDoList.length; i++) {
+        var toDoTime = parseInt(toDoList[i].hour);
+        if (toDoTime < nowTime) {
+            $("#text-" + toDoTime).addClass("past");
+        } else if (toDoTime === nowTime) {
+            $("#text-" + toDoTime).addClass("present");
+        } else {
+            $("#text-" + toDoTime).addClass("future");
+        }
+    }
+}
+changeColor();
