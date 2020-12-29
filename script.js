@@ -1,5 +1,6 @@
 ///// GLOBAL VARIABLES /////
-var toDoList = [];
+var toDoList = [{text: "", hour: 9},{text: "", hour: 10},{text: "", hour: 11},{text: "", hour: 12},{text: "", hour: 13},{text: "", hour: 14},{text: "", hour: 15},{text: "", hour: 16},{text: "", hour: 17}];
+
 
 ///// FUNCTIONS /////
 // Display today's date in header.
@@ -7,7 +8,7 @@ function getToday () {
     var date = dayjs().format("dddd, MMMM D")
     $("#currentDay").text(date);
 }
-getToday();
+
 // Verify same-day todos.
 function verifyToday() {
     var todayDate = dayjs().format("MMMM D");
@@ -17,13 +18,15 @@ function verifyToday() {
     } else {
         localStorage.setItem("date", todayDate);
         localStorage.removeItem("toDoList");
+        writeToStorage();
     }
 }
-verifyToday();
+
 // Store to do list.
 function writeToStorage() {
     localStorage.setItem("toDoList", JSON.stringify(toDoList));
 }
+
 // Retrieve to do list.
 function retrieveFromStorage() {
     if (localStorage === "") {
@@ -32,6 +35,7 @@ function retrieveFromStorage() {
         toDoList = JSON.parse(localStorage.getItem("toDoList")) || [];
     }
 }
+
 // Load to do items.
 function loadToDos() {
     retrieveFromStorage();
@@ -41,7 +45,7 @@ function loadToDos() {
         $("#text-" + hour).val(text);
     }
 }
-loadToDos();
+
 
 ///// EVENT LISTENERS /////
 // Save data on button click.
@@ -52,6 +56,7 @@ $("button").on("click", function() {
     toDoList.splice((hour-9), 1, toDoObj);
     writeToStorage();
 })
+
 
 ///// PAST, PRESENT, FUTURE /////
 // Change textarea color based on time.
@@ -68,4 +73,10 @@ function changeColor() {
         }
     }
 }
+
+
+///// EXECUTE FUNCTIONS /////
+getToday();
+verifyToday();
+loadToDos();
 changeColor();
