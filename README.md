@@ -75,4 +75,4 @@ function retrieveFromStorage() {
 * [GitHub](https://github.com/profjjk)
 
 ## Screenshots
-![Scheduler](assets/scheduler-screenshot.png)
+![Scheduler](img/scheduler-screenshot.png)
